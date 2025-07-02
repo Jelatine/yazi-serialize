@@ -1,0 +1,25 @@
+name: Debug with SSH
+
+on:
+  workflow_dispatch:  # 手动触发
+  # 或者在其他事件中添加调试步骤
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    # 你的其他构建步骤...
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    # 在需要调试的位置添加SSH步骤
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      with:
+        limit-access-to-actor: true  # 只允许触发工作流的用户访问
